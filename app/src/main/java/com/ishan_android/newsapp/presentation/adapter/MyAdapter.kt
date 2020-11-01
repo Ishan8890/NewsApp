@@ -1,11 +1,11 @@
-package com.ishan_android.newsapp.adapter
+package com.ishan_android.newsapp.presentation.adapter
 
 import android.content.Context
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
-import com.ishan_android.newsapp.fragment.AllNews
-import com.ishan_android.newsapp.fragment.Sources
+import com.ishan_android.newsapp.fragment.AllNewsFragment
+import com.ishan_android.newsapp.fragment.SourceFragment
 
 @Suppress("DEPRECATION")
 internal class MyAdapter(
@@ -17,10 +17,10 @@ FragmentPagerAdapter(fm) {
    override fun getItem(position: Int): Fragment {
       return when (position) {
          0 -> {
-            Sources()
+            SourceFragment()
          }
          1 -> {
-            AllNews()
+            AllNewsFragment()
          }
          else -> getItem(position)
       }

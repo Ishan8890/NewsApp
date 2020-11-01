@@ -5,6 +5,8 @@ import com.ishan_android.newsapp.data.repository.news_source.datasource.NewsCach
 import com.ishan_android.newsapp.data.repository.news_source.datasource.NewsLocalDataSource
 import com.ishan_android.newsapp.data.repository.news_source.datasource.NewsRemoteDataSource
 import com.ishan_android.newsapp.domain.repository.NewsRepository
+import com.ishan_android.newsapp.model.allnews.Article
+import com.ishan_android.newsapp.model.allnews.NewsModel
 import com.ishan_android.newsapp.model.source.Source
 import java.lang.Exception
 
@@ -25,6 +27,14 @@ class NewsRespositoryImpl(
         return newListOfArtist
     }
 
+    override suspend fun getArticleSource(): List<Article>? {
+        return getTopHeadlinesFromAPI()
+    }
+
+    override suspend fun getDetailSource(id:String): List<Article>? {
+       return getDetailSourceFromAPI(id)
+    }
+
     suspend fun getNewsFromAPI(): List<Source> {
         lateinit var newsList: List<Source>
         try {
@@ -37,6 +47,34 @@ class NewsRespositoryImpl(
             Log.i("MyTag", exception.message.toString())
         }
         return newsList
+    }
+
+    suspend fun getDetailSourceFromAPI(id:String):List<Article>{
+        lateinit var articleList: List<Article>
+        try {
+            val response = newsRemoteDataSource.getDetailNewsFromServer(id)
+            val body = response.body()
+            if(body!=null){
+                articleList = body.articles
+            }
+        } catch (exception: Exception) {
+            Log.i("MyTag", exception.message.toString())
+        }
+        return articleList
+    }
+
+    suspend fun getTopHeadlinesFromAPI():List<Article>{
+        lateinit var articleList: List<Article>
+        try {
+            val response = newsRemoteDataSource.getNewsHeadLinesFromServer()
+            val body = response.body()
+            if(body!=null){
+                articleList = body.articles
+            }
+        } catch (exception: Exception) {
+            Log.i("MyTag", exception.message.toString())
+        }
+        return articleList
     }
 
     suspend fun getNewsFromDB():List<Source>{

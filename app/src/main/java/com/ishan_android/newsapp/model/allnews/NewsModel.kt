@@ -3,7 +3,7 @@ package com.ishan_android.newsapp.model.allnews
 
 import com.google.gson.annotations.SerializedName
 
-data class everything_news_model(
+data class NewsModel(
     val articles: List<Article>,
     val status: String,
     val totalResults: Int

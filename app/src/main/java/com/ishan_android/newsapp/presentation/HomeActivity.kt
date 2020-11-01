@@ -9,7 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.tabs.TabLayout
 import com.ishan_android.newsapp.R
-import com.ishan_android.newsapp.adapter.MyAdapter
+import com.ishan_android.newsapp.presentation.adapter.MyAdapter
 import com.ishan_android.newsapp.databinding.ActivityHomeBinding
 import com.ishan_android.newsapp.presentation.di.Injector
 import com.ishan_android.newsapp.presentation.news.NewsViewModel
@@ -29,9 +29,8 @@ class HomeActivity : AppCompatActivity() {
         title = "KotlinApp"
         tabLayout = findViewById(R.id.tabLayout)
         viewPager = findViewById(R.id.viewPager)
-        tabLayout.addTab(tabLayout.newTab().setText("Football"))
-        tabLayout.addTab(tabLayout.newTab().setText("Cricket"))
-        tabLayout.addTab(tabLayout.newTab().setText("NBA"))
+        tabLayout.addTab(tabLayout.newTab().setText("Source"))
+        tabLayout.addTab(tabLayout.newTab().setText("All News"))
         tabLayout.tabGravity = TabLayout.GRAVITY_FILL
         val adapter = MyAdapter(this, supportFragmentManager,
             tabLayout.tabCount)
@@ -45,12 +44,12 @@ class HomeActivity : AppCompatActivity() {
             override fun onTabReselected(tab: TabLayout.Tab) {}
         })
 
-        (application as Injector).createNewsSubComponent().inject(this)
-        newsViewModel =ViewModelProvider(this,factory).get(NewsViewModel::class.java)
-        val responseNewsLiveData  = newsViewModel.getNews()
-        responseNewsLiveData.observe(this, Observer {
-            Log.i("MY TAG ",""+it.toString())
-        })
+//        (application as Injector).createNewsSubComponent().inject(this)
+//        newsViewModel =ViewModelProvider(this,factory).get(NewsViewModel::class.java)
+//        val responseNewsLiveData  = newsViewModel.getNews()
+//        responseNewsLiveData.observe(this, Observer {
+//            Log.i("MY TAG ",""+it.toString())
+//        })
 
     }
 }

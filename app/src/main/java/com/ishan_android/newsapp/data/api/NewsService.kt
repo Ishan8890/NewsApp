@@ -1,6 +1,6 @@
 package com.ishan_android.newsapp.data.api
 
-import com.ishan_android.newsapp.model.source.Source
+import com.ishan_android.newsapp.model.allnews.NewsModel
 import com.ishan_android.newsapp.model.source.SourceModel
 import retrofit2.Response
 import retrofit2.http.GET
@@ -18,7 +18,15 @@ interface NewsService {
     //https://newsapi.org/v2/everything?q=al-jazeera-english&apiKey=a40e2d7b33cc4a58bca80e711a1f0117
     @GET("/v2/everything")
     suspend fun getAllNews(
-        @Query("api_key") apiKey: String
-    ): Response<SourceModel>
+        @Query("q") id:String,
+        @Query("apiKey") apiKey: String
+    ): Response<NewsModel>
+
+    //https://newsapi.org/v2/top-headlines?country=us&apiKey=API_KEY
+    @GET("v2/top-headlines")
+    suspend fun getTopHeadlines(
+            @Query("country") country:String,
+            @Query("apiKey") apiKey:String
+    ):Response<NewsModel>
 
 }
