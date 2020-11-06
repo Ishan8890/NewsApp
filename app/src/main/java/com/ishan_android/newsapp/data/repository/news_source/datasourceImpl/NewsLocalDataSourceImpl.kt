@@ -24,4 +24,9 @@ class NewsLocalDataSourceImpl(private val newsDao: SourceNewsDao) : NewsLocalDat
         }
 
     }
+
+    override suspend fun getSelectedNews(limit:Int,offSet:Int): List<Source> {
+            return newsDao.getSelectedList(limit,offSet)
+    }
+
 }

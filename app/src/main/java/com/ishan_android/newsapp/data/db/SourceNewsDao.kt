@@ -18,4 +18,7 @@ interface SourceNewsDao {
 
     @Query("SELECT * FROM news_sources_tb")
     suspend fun getNews():List<Source>
+
+    @Query("SELECT * FROM news_sources_tb ORDER BY id  LIMIT :id,:offSet")
+    suspend fun getSelectedList(id:Int,offSet:Int):List<Source>
 }

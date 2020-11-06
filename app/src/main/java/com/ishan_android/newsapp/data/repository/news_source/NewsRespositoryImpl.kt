@@ -35,6 +35,12 @@ class NewsRespositoryImpl(
        return getDetailSourceFromAPI(id)
     }
 
+    override suspend fun getSelectedDbSource(limit: Int, offset: Int): List<Source>? {
+        var list:List<Source> = ArrayList()
+        list =  newsLocalDataSource.getSelectedNews(limit,offset)
+        return list
+    }
+
     suspend fun getNewsFromAPI(): List<Source> {
         lateinit var newsList: List<Source>
         try {
@@ -64,7 +70,7 @@ class NewsRespositoryImpl(
     }
 
     suspend fun getTopHeadlinesFromAPI():List<Article>{
-        lateinit var articleList: List<Article>
+        var articleList: List<Article> = ArrayList()
         try {
             val response = newsRemoteDataSource.getNewsHeadLinesFromServer()
             val body = response.body()
@@ -78,7 +84,7 @@ class NewsRespositoryImpl(
     }
 
     suspend fun getNewsFromDB():List<Source>{
-        lateinit var newsList: List<Source>
+         var newsList: List<Source> = ArrayList()
         try {
             newsList = newsLocalDataSource.getNewsFromDB()
         } catch (exception: Exception) {
@@ -95,7 +101,7 @@ class NewsRespositoryImpl(
     }
 
     suspend fun getNewsFromCache():List<Source>{
-        lateinit var newsList: List<Source>
+         var newsList: List<Source> = ArrayList()
         try {
             newsList = newsCacheDataSource.getNewsFromCache()
         } catch (exception: Exception) {
